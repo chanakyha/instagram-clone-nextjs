@@ -3,14 +3,18 @@ import React from "react";
 import {
   SearchIcon,
   PlusCircleIcon,
-  UserGroupIcon,
   HeartIcon,
   PaperAirplaneIcon,
   MenuIcon,
+  LoginIcon,
+  LogoutIcon,
 } from "@heroicons/react/outline";
 import { HomeIcon } from "@heroicons/react/solid";
+import { useAuth } from "../context/useAuth";
 
 const Header = () => {
+  const { user, onSignin, onSignout } = useAuth();
+
   return (
     <div className="shadow-sm border-b-1 bg-white sticky top-0 z-50">
       <div className="flex justify-between bg-white max-w-6xl items-center mx-5 xl:mx-auto">
@@ -43,21 +47,30 @@ const Header = () => {
         <div className="flex items-center justify-end space-x-4">
           <HomeIcon className="navBtn" />
           <MenuIcon className="h-10 w-10 md:hidden cursor-pointer" />
-          <div className="relative navBtn">
-            <PaperAirplaneIcon className="navBtn rotate-45" />
-            <div className="absolute -top-2 -right-1 text-xs h-5 w-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">
-              3
-            </div>
-          </div>
-          <PlusCircleIcon className="navBtn" />
-          <UserGroupIcon className="navBtn" />
-          <HeartIcon className="navBtn" />
+          {user ? (
+            <>
+              <div className="relative navBtn">
+                <PaperAirplaneIcon className="navBtn rotate-45" />
+                <div className="absolute -top-2 -right-1 text-xs h-5 w-5 bg-red-500 rounded-full flex items-center justify-center animate-pulse text-white">
+                  3
+                </div>
+              </div>
+              <PlusCircleIcon className="navBtn" />
+              <HeartIcon className="navBtn" />
+              <LogoutIcon onClick={onSignout} className="navBtn text-red-600" />
 
-          <img
-            src="https://avatars.githubusercontent.com/u/66877639?v=4"
-            alt="avatar"
-            className="h-10 rounded-full cursor-pointer"
-          />
+              <img
+                src={
+                  user.photoURL ||
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+                }
+                alt="avatar"
+                className="h-10 rounded-full cursor-pointer"
+              />
+            </>
+          ) : (
+            <LoginIcon onClick={onSignin} className="navBtn text-blue-600" />
+          )}
         </div>
       </div>
     </div>
