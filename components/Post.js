@@ -13,6 +13,7 @@ const Post = ({ id, username, userImg, img, caption }) => {
         <p className="flex-1 font-bold">{username}</p>
         <DotsHorizontalIcon className="h-5 cursor-pointer" />
       </div>
+      <img src={img} alt="post-image" className="object-cover w-full" />
     </div>
   );
 };
