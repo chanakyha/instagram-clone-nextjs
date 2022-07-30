@@ -1,31 +1,22 @@
-import React from "react";
+import { collection, onSnapshot } from "firebase/firestore";
+import React, { useState } from "react";
+import { db } from "../firebase";
 import Post from "./Post";
 
-const posts = [
-  {
-    id: 234,
-    username: ".__chanakyha__.",
-    userImg: "https://avatars.githubusercontent.com/u/66877639?v=4",
-    img: "https://avatars.githubusercontent.com/u/66877639?v=4",
-    caption: "Hello I am Chanakyha",
-  },
-  {
-    id: 376,
-    username: ".__chanakyha__.",
-    userImg: "https://avatars.githubusercontent.com/u/66877639?v=4",
-    img: "https://avatars.githubusercontent.com/u/66877639?v=4",
-    caption: "Hello I am Chanakyha",
-  },
-  {
-    id: 2344,
-    username: ".__chanakyha__.",
-    userImg: "https://avatars.githubusercontent.com/u/66877639?v=4",
-    img: "https://avatars.githubusercontent.com/u/66877639?v=4",
-    caption: "Hello I am Chanakyha",
-  },
-];
-
 const Posts = () => {
+  const [posts, setPosts] = useState([]);
+
+  useState(() => {
+    const unsub = onSnapshot(collection(db, "post"), (snapshot) => {
+      const posts = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPosts(posts);
+    });
+
+    return unsub;
+  }, []);
   return (
     <div>
       {posts.map((post) => {
@@ -34,8 +25,8 @@ const Posts = () => {
             key={post.id}
             id={post.id}
             username={post.username}
-            userImg={post.userImg}
-            img={post.img}
+            userImg={post.profileImg}
+            img={post.image}
             caption={post.caption}
           />
         );
