@@ -21,13 +21,16 @@ const Post = ({ id, username, userImg, img, caption }) => {
       </div>
       <img src={img} alt="post-image" className="object-cover w-full" />
       <div className="flex items-center justify-between px-4 pt-4">
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 items-center">
           <HeartIcon className="btn" />
           <ChatIcon className="btn" />
-          <PaperAirplaneIcon className="btn" />
+          <PaperAirplaneIcon className="btn hover:rotate-45" />
         </div>
         <BookmarkIcon className="btn" />
       </div>
+      <p className="p-5 trancate">
+        <span className="font-bold mr-1">{username}</span> {caption}
+      </p>
     </div>
   );
 };
