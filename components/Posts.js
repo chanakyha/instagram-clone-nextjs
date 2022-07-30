@@ -22,18 +22,24 @@ const Posts = () => {
   }, []);
   return (
     <div>
-      {posts.map((post) => {
-        return (
-          <Post
-            key={post.id}
-            id={post.id}
-            username={post.username}
-            userImg={post.profileImg}
-            img={post.image}
-            caption={post.caption}
-          />
-        );
-      })}
+      {posts.length > 0 ? (
+        posts.map((post) => {
+          return (
+            <Post
+              key={post.id}
+              id={post.id}
+              username={post.username}
+              userImg={post.profileImg}
+              img={post.image}
+              caption={post.caption}
+            />
+          );
+        })
+      ) : (
+        <h1 className="font-bold text-center text-red-600 mt-7 text-xl">
+          No Post Available
+        </h1>
+      )}
     </div>
   );
 };
