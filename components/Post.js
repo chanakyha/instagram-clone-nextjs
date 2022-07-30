@@ -123,7 +123,9 @@ const Post = ({ id, username, userImg, img, caption }) => {
       <p className="p-5 trancate">
         {console.log(likes?.length)}
         {likes?.length > 0 ? (
-          <p className="font-bold mb-1">{likes.length} likes</p>
+          <p className="font-bold mb-1">
+            {likes.length} {likes.length === 1 ? "like" : "likes"}
+          </p>
         ) : null}
         <span className="font-bold mr-1">{username}</span> {caption}
       </p>
