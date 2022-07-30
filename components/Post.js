@@ -6,6 +6,7 @@ import {
   ChatIcon,
   PaperAirplaneIcon,
   BookmarkIcon,
+  EmojiHappyIcon,
 } from "@heroicons/react/outline";
 const Post = ({ id, username, userImg, img, caption }) => {
   return (
@@ -31,6 +32,16 @@ const Post = ({ id, username, userImg, img, caption }) => {
       <p className="p-5 trancate">
         <span className="font-bold mr-1">{username}</span> {caption}
       </p>
+
+      <form className="flex items-center p-4">
+        <EmojiHappyIcon className="h-7" />
+        <input
+          type="text"
+          placeholder="Add a Comment ..."
+          className="border-none flex-1 focus:ring-0"
+        />
+        <button className="font-semibold text-blue-400">Post</button>
+      </form>
     </div>
   );
 };
