@@ -44,9 +44,9 @@ const Header = () => {
             />
           </div>
         </div>
+
         <div className="flex items-center justify-end space-x-4">
           <HomeIcon className="navBtn" />
-          <MenuIcon className="h-10 w-10 md:hidden cursor-pointer" />
           {user ? (
             <>
               <div className="relative navBtn">
@@ -56,11 +56,14 @@ const Header = () => {
                 </div>
               </div>
               <PlusCircleIcon
-                className="navBtn"
+                className="navBtn inline-flex"
                 onClick={() => setModalStatus(!modalStatus)}
               />
               <HeartIcon className="navBtn" />
-              <LogoutIcon onClick={onSignout} className="navBtn text-red-600" />
+              <LogoutIcon
+                onClick={onSignout}
+                className="navBtn text-red-600  inline-flex"
+              />
 
               <img
                 src={
@@ -72,7 +75,10 @@ const Header = () => {
               />
             </>
           ) : (
-            <LoginIcon onClick={onSignin} className="navBtn text-blue-600" />
+            <LoginIcon
+              onClick={onSignin}
+              className="navBtn inline-flex text-blue-600"
+            />
           )}
         </div>
       </div>

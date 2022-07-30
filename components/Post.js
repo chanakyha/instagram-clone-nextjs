@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  HeartIcon as HeartIconFilled,
-  BookmarkIcon as BookmarkIconFilled,
-} from "@heroicons/react/solid";
+import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 import {
   DotsHorizontalIcon,
   HeartIcon,
@@ -11,6 +8,7 @@ import {
   BookmarkIcon,
   EmojiHappyIcon,
 } from "@heroicons/react/outline";
+
 import { useAuth } from "../context/useAuth";
 import {
   addDoc,
