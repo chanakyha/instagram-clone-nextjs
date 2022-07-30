@@ -17,8 +17,11 @@ import {
   collection,
   onSnapshot,
   orderBy,
+  doc,
   query,
   serverTimestamp,
+  setDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import Moment from "react-moment";
@@ -26,6 +29,8 @@ import Moment from "react-moment";
 const Post = ({ id, username, userImg, img, caption }) => {
   const [comment, setComment] = useState("");
   const [totalComments, setTotalComments] = useState();
+  const [likes, setLikes] = useState();
+  const [hasLiked, setHasLiked] = useState(false);
   const { user } = useAuth();
 
   useEffect(
@@ -33,7 +38,7 @@ const Post = ({ id, username, userImg, img, caption }) => {
       onSnapshot(
         query(
           collection(db, "post", id, "comments"),
-          orderBy("timestamp", "desc")
+          orderBy("timestamp", "asc")
         ),
         (snapshot) => {
           setTotalComments(
@@ -47,6 +52,29 @@ const Post = ({ id, username, userImg, img, caption }) => {
 
     [db, id]
   );
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "post", id, "likes"), (snapshot) => {
+        setLikes(snapshot.docs);
+      }),
+    [db, id]
+  );
+
+  useEffect(
+    () => setHasLiked(likes?.findIndex((like) => like.id === user.uid) !== -1),
+    [likes, user]
+  );
+
+  const likePost = async () => {
+    if (hasLiked) {
+      await deleteDoc(doc(db, "post", id, "likes", user.uid));
+    } else {
+      await setDoc(doc(db, "post", id, "likes", user.uid), {
+        username: user.displayName,
+      });
+    }
+  };
 
   const sendComment = async (e) => {
     e.preventDefault();
@@ -78,7 +106,14 @@ const Post = ({ id, username, userImg, img, caption }) => {
       {user ? (
         <div className="flex items-center justify-between px-4 pt-4">
           <div className="flex space-x-4 items-center">
-            <HeartIcon className="btn" />
+            {hasLiked ? (
+              <HeartIconFilled
+                onClick={likePost}
+                className="btn text-red-500"
+              />
+            ) : (
+              <HeartIcon onClick={likePost} className="btn" />
+            )}
 
             <ChatIcon className="btn" />
             <PaperAirplaneIcon className="btn rotate-45 hover:rotate-90" />
