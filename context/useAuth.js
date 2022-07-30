@@ -16,6 +16,7 @@ const AuthContext = createContext({});
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   const googleProvider = new GoogleAuthProvider();
+  const modal = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -46,7 +47,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, onSignin, onSignout }}>
+    <AuthContext.Provider value={{ user, onSignin, onSignout, modal }}>
       {children}
     </AuthContext.Provider>
   );

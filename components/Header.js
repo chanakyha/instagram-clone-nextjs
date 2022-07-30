@@ -13,8 +13,8 @@ import { HomeIcon } from "@heroicons/react/solid";
 import { useAuth } from "../context/useAuth";
 
 const Header = () => {
-  const { user, onSignin, onSignout } = useAuth();
-
+  const { user, onSignin, onSignout, modal } = useAuth();
+  const [modalStatus, setModalStatus] = modal;
   return (
     <div className="shadow-sm border-b-1 bg-white sticky top-0 z-50">
       <div className="flex justify-between bg-white max-w-6xl items-center mx-5 xl:mx-auto">
@@ -55,7 +55,10 @@ const Header = () => {
                   3
                 </div>
               </div>
-              <PlusCircleIcon className="navBtn" />
+              <PlusCircleIcon
+                className="navBtn"
+                onClick={() => setModalStatus(!modalStatus)}
+              />
               <HeartIcon className="navBtn" />
               <LogoutIcon onClick={onSignout} className="navBtn text-red-600" />
 
