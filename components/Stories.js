@@ -8,7 +8,7 @@ const Stories = () => {
   const [suggestions, setSuggestions] = useState([]);
   const { user } = useAuth();
   useEffect(() => {
-    const suggestion = [...Array(20)].map((_, i) => ({
+    const suggestion = [...Array(10)].map((_, i) => ({
       ...faker.helpers.contextualCard(),
       id: i,
     }));

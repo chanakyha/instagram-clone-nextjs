@@ -25,11 +25,21 @@ const Header = () => {
             layout="fill"
           />
         </div>
-        <div className="lg:hidden relative w-10 h-10 flex-shirnk-0 cursor-pointer">
+        <div className="lg:hidden md:inline-grid hidden relative w-10 h-10 flex-shirnk-0 cursor-pointer">
           <Image
             objectFit="contain"
             layout="fill"
             src="https://links.papareact.com/jjm"
+          />
+        </div>
+        <div className="md:hidden rounded-full relative w-10 h-10 flex-shirnk-0 cursor-pointer">
+          <img
+            className="rounded-full"
+            src={
+              user.photoURL ||
+              "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            }
+            alt="profile-pic"
           />
         </div>
         <div className="max-w-xs">
@@ -62,7 +72,7 @@ const Header = () => {
               <HeartIcon className="navBtn" />
               <LogoutIcon
                 onClick={onSignout}
-                className="navBtn text-red-600  inline-flex"
+                className="navBtn text-red-600 inline-flex "
               />
 
               <img
@@ -71,7 +81,7 @@ const Header = () => {
                   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
                 }
                 alt="avatar"
-                className="h-10 rounded-full cursor-pointer"
+                className="hidden md:inline-flex h-10 rounded-full cursor-pointer"
               />
             </>
           ) : (
