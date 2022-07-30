@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid";
 import {
   DotsHorizontalIcon,
@@ -9,6 +9,7 @@ import {
   EmojiHappyIcon,
 } from "@heroicons/react/outline";
 const Post = ({ id, username, userImg, img, caption }) => {
+  const [liked, setLiked] = useState(false);
   return (
     <div className="bg-white my-7 border rounded-sm shadow-sm">
       <div className="flex items-center p-5">
@@ -23,7 +24,15 @@ const Post = ({ id, username, userImg, img, caption }) => {
       <img src={img} alt="post-image" className="object-cover w-full" />
       <div className="flex items-center justify-between px-4 pt-4">
         <div className="flex space-x-4 items-center">
-          <HeartIcon className="btn" />
+          {liked ? (
+            <HeartIconFilled
+              onClick={() => setLiked(!liked)}
+              className="btn text-red-600"
+            />
+          ) : (
+            <HeartIcon onClick={() => setLiked(!liked)} className="btn" />
+          )}
+
           <ChatIcon className="btn" />
           <PaperAirplaneIcon className="btn rotate-45 hover:rotate-90" />
         </div>

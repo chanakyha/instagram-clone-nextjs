@@ -1,4 +1,4 @@
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import React, { useState } from "react";
 import { db } from "../firebase";
 import Post from "./Post";
@@ -7,13 +7,16 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
 
   useState(() => {
-    const unsub = onSnapshot(collection(db, "post"), (snapshot) => {
-      const posts = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setPosts(posts);
-    });
+    const unsub = onSnapshot(
+      query(collection(db, "post"), orderBy("timestamp", "desc")),
+      (snapshot) => {
+        const posts = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setPosts(posts);
+      }
+    );
 
     return unsub;
   }, []);
