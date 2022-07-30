@@ -123,6 +123,10 @@ const Post = ({ id, username, userImg, img, caption }) => {
         </div>
       ) : null}
       <p className="p-5 trancate">
+        {console.log(likes?.length)}
+        {likes?.length > 0 ? (
+          <p className="font-bold mb-1">{likes.length} likes</p>
+        ) : null}
         <span className="font-bold mr-1">{username}</span> {caption}
       </p>
       {totalComments?.length > 0 ? (
